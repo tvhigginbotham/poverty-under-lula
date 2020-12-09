@@ -33,13 +33,6 @@
       overflow-y: scroll;
     }
 
-    /* .borough {
-      fill: white;
-      stroke-width: 1px;
-      stroke: black;
-      /* vector-effect: non-scaling-stroke; */
-    /* }
-
     /* Small devices (landscape phones, 576px and up) */
     @media (min-width: 576px) {}
 
@@ -67,7 +60,7 @@
       stroke-width: 2;
     } */
 
-    /* .county {
+    .county {
       fill: #fac484;
       stroke: #f8a07e;
     }
@@ -76,7 +69,7 @@
       fill: #f3e79b;
       stroke: #eb7f86;
       stroke-width: 2;
-    } */
+    }
   </style>
 
 </head>
@@ -110,7 +103,7 @@
         </ul>
       </div>
     </footer>
-  </div> <!-- end .container-fluid -->
+  </div> 
 
 
   <script
@@ -144,17 +137,6 @@
 
       // create the Leaflet map
       const map = L.map("map", options);
-
-      // // request tiles and add to map
-      // const tiles = L.tileLayer(
-      //   "http://{s}.tile.stamen.com/toner-background/{z}/{x}/{y}.{ext}",
-      //   {
-      //     attribution:
-      //       'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      //     subdomains: "abcd",
-      //     ext: "png",
-      //   }
-      // ).addTo(map);
 
       // AJAX request for GeoJSON data
       $.getJSON("data/brazil-states.json", function (counties) {
@@ -191,7 +173,7 @@
           // iterate through all the props of each county
           for (const prop in county.properties) {
             // if the attribute is a number and not one of the fips codes or name
-            if (prop != "Country" && prop != "ISO_Code" && prop != "Level" && prop != "GDLCODE" && prop != "Region") {
+            if (prop != "Region") {
               // push that attribute value into the array
               rates.push(Number(county.properties[prop]));
             }
@@ -225,9 +207,6 @@
 
         // first set the zoom/center to the dataLayer's extent
         map.fitBounds(dataLayer.getBounds());
-
-        // // then back the zoom level off a bit (since we're viewing the map full screen)
-        // map.setZoom(map.getZoom() - 0);
 
         //create slider UI
         createSliderUI(dataLayer, colorize);
