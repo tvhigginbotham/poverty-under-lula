@@ -84,7 +84,7 @@
       <aside id="about" class="col-12 col-md-5 col-lg-4 text-dark py-2">
         <section>
           <h2 class="h2 text-dark">What social democracy can do</h2>
-          <p>Here we go: the administrative boroughs of Alaska</p>
+          <p>TK: background on data, image insert</p>
         </section>
       </aside>
     </section>
@@ -117,11 +117,11 @@
     
 
     // request our data files and reference with variables
-    const stateGeoJson = d3.json('data/alaska.geojson')
-    const countyTopoJson = d3.json('data/alaska-wgs84.geojson')
+    const brazilJson = d3.json('data/brazil-states.json')
+    const povertyCsv = d3.json('data/brazil-poverty-and-pop.csv')
 
     // wait until data is loaded then send to draw map function
-    Promise.all([stateGeoJson, countyTopoJson]).then(drawMap);
+    Promise.all([brazilJson, povertyCsv]).then(drawMap);
 
 
     // accepts the data as a parameter countiesData
@@ -141,10 +141,10 @@
         .attr('height', height)
 
         // refer to different datasets
-        const stateData = data[0];
-        const countiesData = data[1];
+        const geographyData = data[0];
+        const povertyData = data[1];
 
-        console.log(countiesData)
+        console.log(povertyData)
 
         // convert the TopoJSON into GeoJSON
         // const countiesGeoJson = topojson.feature(countiesData, {
@@ -155,10 +155,13 @@
       // declare a geographic path generator
       // fit the extent to the width and height using the geojson
 
-      const projection = d3.geoAlbers()
-        .parallels([55.5, 68]) // the standard parallels for projection 
-        .rotate([130, 0]) // rotate 130 degrees from projection's vertical axis
-        .fitSize([width, height], stateData);
+      const projection = d3.geo.albers()
+              .center([-54,-8.4])
+              .parallels( [11.5,-38])
+              .scale(70)
+              .rotate([0,0,-9])
+              .translate([width/2-160,150])
+        .fitSize([width, height], geographyData);
 
       // const svg = mapContainer
       //   .append('svg')
@@ -186,30 +189,30 @@
       }); 
 
       // append a new g element
-      const counties = svg.append('g')
+      const states = svg.append('g')
         .selectAll('path')
-        .data(countiesData.features) // use the GeoJSON features
+        .data(geographyData.features) // use the GeoJSON features
         .join('path')  // join them to path elements
         .attr('d', path)  // use our path generator to project them on the screen
-        .attr('class', 'borough') // give each path element a class name of county
+        .attr('class', 'state') // give each path element a class name of states
 
       // applies event listeners to our polygons for user interaction
-      counties.on('mouseover', (event, d) => { // when mousing over an element
+      states.on('mouseover', (event, d) => { // when mousing over an element
         d3.select(event.currentTarget).classed('hover', true).raise(); // select it, add a class name, and bring to front
-        tooltip.classed('invisible', false).html(`${d.properties.NAME} Borough`) // make tooltip visible and update info 
+        tooltip.classed('invisible', false).html(`${d.properties.Region}`) // make tooltip visible and update info 
       })
       .on('mouseout', (event, d) => { // when mousing out of an element
         d3.select(event.currentTarget).classed('hover', false) // remove the class from the polygon
         tooltip.classed('invisible', true) // hide the element 
       });
 
-      // append states to the SVG
-      svg.append('g') // append a group element to the svg
-        .selectAll('path') // select multiple paths (that don't exist yet)
-        .data(stateData.features) // use the feature data from the geojson
-        .join('path') // join the data to the now created path elements
-        .attr('d', path) // provide the d attribute for the SVG paths
-        .classed('state', true) // give each path element a class name of state
+    //   // append states to the SVG
+    //   svg.append('g') // append a group element to the svg
+    //     .selectAll('path') // select multiple paths (that don't exist yet)
+    //     .data(geographyData.features) // use the feature data from the geojson
+    //     .join('path') // join the data to the now created path elements
+    //     .attr('d', path) // provide the d attribute for the SVG paths
+    //     .classed('state', true) // give each path element a class name of state
 
       const zoom = d3.zoom()
         // on zoom (many events fire this event like mousemove, wheel, dblclick, etc.)...
