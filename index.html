@@ -86,6 +86,24 @@
     <section class="row bg-secondary">
       <div class="col-12 col-md-7 col-lg-8 px-0">
         <div id="map" class="bg-light position-relative"></div>
+        <div id="ui-controls">
+        <label>
+          <span class="min">2001</span>
+          <span class="max">2015</span>
+          <input
+            type="range"
+            min="2001"
+            ,
+            max="2015"
+            ,
+            value="2001"
+            ,
+            step="1"
+            ,
+            class="year-slider"
+          />
+        </label>
+      </div>
       </div>
       <aside id="about" class="col-12 col-md-5 col-lg-4 text-dark py-2">
         <section>
@@ -246,7 +264,7 @@
         // when the control is added to the map
         legendControl.onAdd = function (map) {
           // create a new division element with class of 'legend' and return
-          const legend = L.domUtil.create("div", "legend");
+          const legend = L.DomUtil.create("div", "legend");
           return legend;
         };
 
