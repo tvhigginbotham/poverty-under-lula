@@ -180,20 +180,20 @@
       // create the Leaflet map
       const map = L.map("map", options);
 
-      // request tiles and add to map
-      const tiles = L.tileLayer(
-        "http://{s}.tile.stamen.com/toner-background/{z}/{x}/{y}.{ext}",
-        {
-          attribution:
-            'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-          subdomains: "abcd",
-          ext: "png",
-        }
-      ).addTo(map);
+      // // request tiles and add to map
+      // const tiles = L.tileLayer(
+      //   "http://{s}.tile.stamen.com/toner-background/{z}/{x}/{y}.{ext}",
+      //   {
+      //     attribution:
+      //       'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      //     subdomains: "abcd",
+      //     ext: "png",
+      //   }
+      // ).addTo(map);
 
       // AJAX request for GeoJSON data
-      $.getJSON("data/us-counties.json", function (counties) {
-        Papa.parse("data/us-unemployment-counties.csv", {
+      $.getJSON("data/brazil-states.json", function (counties) {
+        Papa.parse("data/brazil-poverty-and-pop.csv", {
           download: true,
           header: true,
           complete: function (data) {
@@ -208,7 +208,7 @@
           // for each of the CSV data rows
           for (let j of data.data) {
             // if the county fips code and data fips code match
-            if (i.properties.GEOID === j.STATE_FIP + j.COUNTY_FIP) {
+            if (i.properties.ADM1_PT === j.Region) {
               // re-assign the data for that county as the county's props
               i.properties = j;
 
@@ -268,7 +268,7 @@
         createSliderUI(dataLayer, colorize);
 
         //initially color map with first timestamp
-        updateMap(dataLayer, colorize, "2001");
+        updateMap(dataLayer, colorize, "2003");
       } //end drawMap
 
       function updateMap(dataLayer, colorize, currentYear) {
@@ -283,7 +283,7 @@
           });
 
           //build tooltip
-          const tooltip = `<b>${props["NAME"]} County</b><br />
+          const tooltip = `<b>${props["Region"]} County</b><br />
             ${props[currentYear]}% Unemployed`;
 
           //bind tooltip to layer
