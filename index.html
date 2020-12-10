@@ -54,21 +54,83 @@
     /* Extra large devices (large desktops, 1200px and up) */
     @media (min-width: 1200px) {}
 
-    /* /* .state {
+    .state {
       fill: none;
-      stroke: #eb7f86;
+      stroke: #4e4e4e;
       stroke-width: 2;
-    } */
-
-    .county {
-      fill: #fac484;
-      stroke: #f8a07e;
     }
 
-    .county:hover {
+    .state:hover {
       fill: #f3e79b;
       stroke: #eb7f86;
       stroke-width: 2;
+    }
+
+    .legend {
+        padding: 6px 8px;
+        font-size: 1em;
+        background: rgba(75, 75, 75, 0.8);
+        color: whitesmoke;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        width: 160px;
+    }
+
+    .legend h3 {
+        font-size: 1.1em;
+        font-weight: bold;
+        line-height: 1em;
+        color: whitesmoke;
+        margin: 0;
+    }
+
+    .legend h3 span {
+        font-size: 1.3em;
+        margin: 0 20px 0 0;
+    }
+
+    .legend ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 12px 4px 0;
+    }
+
+    .legend li {
+        height: 22px;
+    }
+
+    .legend span {
+        width: 30px;
+        height: 20px;
+        float: left;
+        margin-right: 10px;
+    }
+
+    #ui-controls {
+        width: 176px;
+        padding: 8px 25px 8px 15px;
+        background: rgba(75, 75, 75, 0.8);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        color: whitesmoke;
+    }
+
+    #ui-controls .min {
+        float: left;
+    }
+
+    #ui-controls .max {
+        float: right;
+        margin-right: -15px;
+    }
+
+    .year-slider {
+        width: 100%;
+    }
+
+    label {
+        font-size: 1.1em;
+        font-weight: bold;
     }
   </style>
 
@@ -79,35 +141,31 @@
   <div class="container-fluid">
     <header class="row py-3 bg-dark text-white">
       <div class="col mx-2">
-        <h1 class="h1">Here's how far poverty fell in Brazil under Lula da Silva</h1>
+        <h1 class="h1 text-white">Here's how far poverty fell in Brazil under Lula da Silva</h1>
       </div>
     </header>
 
     <section class="row bg-secondary">
       <div class="col-12 col-md-7 col-lg-8 px-0">
-        <div id="map" class="bg-light position-relative"></div>
+        <div id="map" class="bg-dark position-relative"></div>
         <div id="ui-controls">
-        <label>
-          <span class="min">2001</span>
-          <span class="max">2015</span>
-          <input
-            type="range"
-            min="2001"
-            ,
-            max="2015"
-            ,
-            value="2001"
-            ,
-            step="1"
-            ,
-            class="year-slider"
-          />
-        </label>
+          <label>
+            <span class="min">2003</span>
+            <span class="max">2010</span>
+            <input
+              type="range"
+              min="2003"
+              max="2010"
+              value="2003"
+              step="1"
+              class="year-slider"
+            />
+          </label>
+        </div>
       </div>
-      </div>
-      <aside id="about" class="col-12 col-md-5 col-lg-4 text-dark py-2">
+      <aside id="about" class="col-12 col-md-5 col-lg-4 bg-dark text-white py-2">
         <section>
-          <h2 class="h2 text-dark">about this map</h2>
+          <h2 class="h2 text-white">About this map</h2>
           <p>TK: background on data, image insert</p>
         </section>
       </aside>
@@ -116,7 +174,7 @@
       <div class="col mx-2">
         <ul class="list-unstyled">
           <li>Author: Tim Higginbotham</li>
-          <li>December 9, 2020</li>
+          <li>December 8, 2020</li>
           <li><a href="">Data</a></li>
         </ul>
       </div>
@@ -146,6 +204,16 @@
 
   <script>
 // map options
+      let parsedData;
+
+      function getPopulation(region, year) {
+        for (let row of parsedData) {
+          if (row["Region"] === region) {
+            return row[year.replace('poverty-', 'pop')];
+          }
+        }
+      }
+
       const options = {
         scrollWheelZoom: false,
         zoomSnap: 0.1,
@@ -157,24 +225,26 @@
       const map = L.map("map", options);
 
       // AJAX request for GeoJSON data
-      $.getJSON("data/brazil-states.json", function (counties) {
+      $.getJSON("data/brazil-states.json", function (states) {
         Papa.parse("data/brazil-poverty-and-pop.csv", {
           download: true,
           header: true,
           complete: function (data) {
-            processData(counties, data);
+            processData(states, data);
           },
         });
       });
 
-      function processData(counties, data) {
-        // loop through all the counties
-        for (let i of counties.features) {
+      function processData(states, data) {
+        parsedData = data.data;
+
+        // loop through all the states
+        for (let i of states.features) {
           // for each of the CSV data rows
           for (let j of data.data) {
-            // if the county fips code and data fips code match
+            // if the state fips code and data fips code match
             if (i.properties.ADM1_PT === j.Region) {
-              // re-assign the data for that county as the county's props
+              // re-assign the data for that state as the state's props
               i.properties = j;
 
               // no need to keep looping, break from inner loop
@@ -186,33 +256,33 @@
         // empty array to store all the data values
         const rates = [];
 
-        // iterate through all the counties
-        counties.features.forEach(function (county) {
-          // iterate through all the props of each county
-          for (const prop in county.properties) {
+        // iterate through all the states
+        states.features.forEach(function (state) {
+          // iterate through all the props of each state
+          for (const prop in state.properties) {
             // if the attribute is a number and not one of the fips codes or name
-            if (prop != "Region") {
+            if (prop == 'poverty-2003') {
               // push that attribute value into the array
-              rates.push(Number(county.properties[prop]));
+              rates.push(Number(state.properties[prop]));
             }
           }
         });
         // create class breaks
-        var breaks = chroma.limits(rates, "q", 5);
+        var breaks = [0,1,5,10,20,33];
+        var colorHex = ["#ffc4ae","#f9816c","#ec5244","#c23d33","#7b4238"];
 
         // create color generator function
         var colorize = chroma
-          .scale(chroma.brewer.OrRd)
-          .classes(breaks)
+          .scale(colorHex).classes(breaks)
           .mode("lab");
 
-        drawMap(counties, colorize);
+        drawMap(states, colorize);
         drawLegend(breaks, colorize);
       }
 
-      function drawMap(counties, colorize) {
+      function drawMap(states, colorize) {
         // create Leaflet object with geometry data and add to map
-        const dataLayer = L.geoJson(counties, {
+        const dataLayer = L.geoJson(states, {
           style: function (feature) {
             return {
               color: "black",
@@ -246,7 +316,8 @@
 
           //build tooltip
           const tooltip = `<b>${props["Region"]}</b><br />
-            ${props[currentYear]}% in poverty`;
+            ${props[currentYear]}% in poverty<br />
+            Population: ${getPopulation(props["Region"], currentYear)}`;
 
           //bind tooltip to layer
           layer.bindTooltip(tooltip, {
@@ -258,7 +329,7 @@
       function drawLegend(breaks, colorize) {
         // create a Leaflet control for the legend
         const legendControl = L.control({
-          position: "topright",
+          position: "bottomright",
         });
 
         // when the control is added to the map
@@ -317,7 +388,7 @@
         $(".year-slider").on("input change", function () {
           //when user changes
           const currentYear = $(this).val(); //update the year
-          updateMap(dataLayer, colorize, currentYear); // update the map with current timestamp
+          updateMap(dataLayer, colorize, `poverty-${currentYear}`); // update the map with current timestamp
           $(".legend H3 span").html(currentYear); // update timestamp in legend heading
         });
       } // end createSliderUI()
