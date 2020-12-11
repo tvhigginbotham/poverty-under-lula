@@ -33,6 +33,7 @@
       background-color:rgb(26, 25, 25);
       float: left;
       width: 70%;
+      border-top: 3px double rgb(26, 25, 25);
       height: 90vh !important;
     }
 
@@ -235,7 +236,7 @@
 
       const options = {
         scrollWheelZoom: false,
-        zoomSnap: 0.3,
+        zoomSnap: 0.25,
         dragging: false,
         zoomControl: false,
       };
@@ -348,7 +349,7 @@
       function drawLegend(breaks, colorize) {
         // create a Leaflet control for the legend
         const legendControl = L.control({
-          position: "bottomright",
+          position: "bottomleft",
         });
 
         // when the control is added to the map
@@ -384,7 +385,7 @@
       } // end drawLegend()
 
       function createSliderUI(dataLayer, colorize) {
-        const sliderControl = L.control({ position: "bottomleft" });
+        const sliderControl = L.control({ position: "bottomright" });
         //when added to the map
         sliderControl.onAdd = function (map) {
           //create leaflet control for the slider
