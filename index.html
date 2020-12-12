@@ -21,10 +21,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Martel:wght@200&display=swap" rel="stylesheet">
 
   <style>
@@ -33,32 +29,33 @@
     #map {
       background-color:rgb(26, 25, 25);
       float: left;
-      width: 70%;
+      width: 65%;
       height: 93vh;
       min-height: 93vh;
-      border-top:  5px double rgb(26, 25, 25);
-      border-bottom: 5px double rgb(26, 25, 25);
+      border-top:  3px groove whitesmoke;
+      border-bottom: 3px groove whitesmoke;
     }
 
     #about {
-      background-color:#000000;
-      color: rgb(255, 255, 255);
+      background-color:rgb(26, 25, 25);
+      color: whitesmoke;
       float: right;
-      width: calc(30% - 20px);
+      width: calc(35% - 27px);
       height: 93vh;
       min-height: 93vh;
       margin: auto;
-      padding: 0px 10px 0px 10px;
-      border-top: 5px double rgb(26, 25, 25);
-      border-bottom: 5px double rgb(26, 25, 25);
-      font-family: 'raleway', sans-serif;
+      padding: 0px 12px 0px 12px;
+      border-top: 3px groove white;
+      border-bottom: 3px groove whitesmoke;
+      border-left: 3px groove whitesmoke;
+      font-family: 'open sans', sans-serif;
       font-size: 15px;
       overflow-y: scroll;
     }
 
     .textwrap{
       float: right;
-margin: 10px;
+margin: 2px 10px 2px 2px;
     }
 
     .caption{
@@ -77,22 +74,26 @@ margin: 10px;
       height: 6vh;
       width: calc(100%-10px);
       margin:auto;
-      padding: 4px 0px 0px 10px;
-      background-color:#000000;
-      color: rgb(255, 251, 251);
+      padding: 5px 0px 0px 10px;
+      background-color:rgb(26, 25, 25);
+      color: whitesmoke;
       font-family: 'Cabin', sans-serif;
     }
 
     .h2 {
-      font-family: 'Cabin', sans-serif;
+      font-family: 'open sans', sans-serif;
+      font-weight: normal;
+      padding: 0px
     }
 
     .p {
-      font-family: 'Open Sans', sans-serif;
+      font-family: 'lato', sans-serif;
+      font-weight: lighter
     }
 
     /* Small devices (landscape phones, 576px and up) */
-    @media (min-width: 576px) {}
+    @media (min-width: 576px) {
+    }
 
     /* Medium devices (tablets, 768px and up) */
     @media (min-width: 768px) {
@@ -113,21 +114,22 @@ margin: 10px;
     @media (min-width: 1200px) {}
 
     .legend {
-        padding: 6px 8px;
+        /* padding: 0px 0px; */
         font-size: 1em;
         background: rgba(17, 17, 17, 0.8);
         color: whitesmoke;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 2px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
-        width: 160px;
+        width: 180px;
     }
 
     .legend h3 {
-        font-size: 1.1em;
+        font-size: 1.3em;
+        font-family: 'cabin', sans-serif;
         font-weight: bold;
         line-height: 1em;
         color: whitesmoke;
-        margin: 0;
+        margin-left: 20px;
     }
 
     .legend h3 span {
@@ -138,7 +140,9 @@ margin: 10px;
     .legend ul {
         list-style-type: none;
         padding: 0;
-        margin: 12px 4px 0;
+        font-family: 'cabin', sans-serif;
+        font-size: 13px;
+        margin: 12px 4px 20px 20px;
     }
 
     .legend li {
@@ -154,7 +158,7 @@ margin: 10px;
 
     #ui-controls {
         width: 176px;
-        margin-bottom: 10px;
+        margin: 0px 10px 10px 0px;
         padding: 8px 25px 8px 15px;
         background: rgba(17, 17, 17, 0.8);
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -176,7 +180,8 @@ margin: 10px;
     }
 
     label {
-        font-size: 1.1em;
+        font-size: 1.3em;
+        font-family: 'cabin', sans-serif;
         font-weight: bold;
     }
   </style>
@@ -192,7 +197,7 @@ margin: 10px;
       </div>
     </header> 
 
-    <section class="row bg-secondary">
+    <section>
       <div>
         <div id="map"></div>
         <div id="ui-controls">
@@ -213,9 +218,9 @@ margin: 10px;
       <aside id="about">
         <section>
           <h2 class="h2">HOW IT HAPPENED</h2>
-          <p class="p" > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et, sskjdsn kdjedii xjdndjxndxbjd d x jxj skn kneke xn jxenen </p>
-          <img class="textwrap" src="graphics/lula-ricardoStuckert.png" width="318"alt="Pro-Lula Rally">
-          <div class="caption">Lula's supporters take to the streets following his <br>arrest during the 2018 election.<br><span class="caption2">Photo by Ricardo Stuckert. Licensed by Creative Commons</span></div>
+          <p class="p" > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et, sskjdsn kdjedii xjdndjxndxbjd d x jxj skn kneke xn jxenen Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et, smaodln sjej nndndn djd lorem ipsum samom dalom lorem ipsom</p>
+          <img class="textwrap" src="graphics/lula-ricardoStuckert.png" width="350"alt="Pro-Lula Rally">
+          <!-- <div class="caption">Lula's supporters take to the streets following his <br>arrest during the 2018 election.<br><span class="caption2">Photo by Ricardo Stuckert. Licensed by Creative Commons</span></div> -->
           <p class="p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et,j Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et,Lorem ipsum dolor sit amet,</p><p class="p"> Nam id purus finibus, venenatis ligula et,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et,</p> consectetur adipiscing elit. Nam id purus finibus, venenatis ligula et,Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
         </section>
       </aside>
@@ -228,11 +233,11 @@ margin: 10px;
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
   
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" 
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </script>
+
+  <script> src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"</script>
 
   <script
       src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
@@ -242,8 +247,6 @@ margin: 10px;
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
-  <!-- <script src="https://unpkg.com/topojson@3"></script> -->
-
   <script>
 // map options
       let parsedData;
@@ -256,11 +259,15 @@ margin: 10px;
         }
       }
 
+      function sparkline(rates) {
+        $('.dynamicsparkline').sparkline(rates);
+      }
+
       const options = {
         scrollWheelZoom: false,
-        zoomSnap: 0.25,
+        zoomSnap: 0.2,
         dragging: false,
-        zoomControl: false,
+        zoomControl: true,
       };
 
       // create the Leaflet map
@@ -311,7 +318,7 @@ margin: 10px;
         });
         // create class breaks
         var breaks = [0,1,5,10,15,20,33];
-        var colorHex = ['#eff3ff','#c6dbef','#9ecae1','#6baed6','#3182bd','#084594'];
+        var colorHex = ['#eff3ff','#c6dbef','#9ecae1','#6baed6','#3182bd','#08519c'];
 
         // create color generator function
         var colorize = chroma
@@ -327,8 +334,8 @@ margin: 10px;
         const dataLayer = L.geoJson(states, {
           style: function (feature) {
             return {
-              color: "white",
-              weight: .8,
+              color: "whitesmoke",
+              weight: 1.5,
               fillOpacity: 1,
               fillColor: "#ffffff",
             };
@@ -345,7 +352,7 @@ margin: 10px;
         updateMap(dataLayer, colorize, "poverty-2003");
       } //end drawMap
 
-      function updateMap(dataLayer, colorize, currentYear) {
+      function updateMap(dataLayer, colorize, currentYear, rates) {
         // loop through each layer
         dataLayer.eachLayer(function (layer) {
           //shorthand for properties
@@ -359,7 +366,8 @@ margin: 10px;
           //build tooltip
           const tooltip = `<b>${props["Region"]}</b><br />
             ${props[currentYear]}% in poverty<br />
-            Population: ${getPopulation(props["Region"], currentYear)}`;
+            Population: ${getPopulation(props["Region"], currentYear)} million<br />
+            Trend: class= "dynamicsparkline"`
 
           //bind tooltip to layer
           layer.bindTooltip(tooltip, {
