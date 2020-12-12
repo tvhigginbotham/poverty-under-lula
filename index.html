@@ -340,6 +340,26 @@ margin: 2px 10px 2px 2px;
               fillColor: "#ffffff",
             };
           },
+          // add hover/touch functionality to each feature layer
+          onEachFeature: function (feature, layer) {
+            layer.on("mouseover", function () {
+              layer
+                .setStyle({
+                  color: "yellow",
+                  weight: 3
+                })
+                .bringToFront();
+            });
+
+            // on mousing off layer
+            layer.on("mouseout", function () {
+              // reset the layer style
+              layer.setStyle({
+                color: "whitesmoke",
+                weight: 1.5
+              });
+            });
+          },
         }).addTo(map);
 
         // first set the zoom/center to the dataLayer's extent
