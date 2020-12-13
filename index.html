@@ -69,7 +69,7 @@
         text-align: left;
         padding: 10;
         margin: 10;
-        border: 3px groove rgb(139, 132, 132);
+        border: 1px groove rgb(139, 132, 132);
       }
 
       /* .caption{
@@ -80,9 +80,10 @@
     } */
 
       .caption {
-        text-align: center;
-        font-size: 13px;
-        font-family: "cabin", sans-serif;
+        text-align: left;
+        padding:5px;
+        font-size: 10px;
+        font-family: "martel", serif;
         color: rgb(151, 145, 145);
       }
 
@@ -118,7 +119,10 @@
       .p2 {
         font-family: "lato", sans-serif;
         font-weight: lighter;
-        font-size: 12;
+        color:rgb(187, 181, 181);
+        margin-top: 4px;
+        font-size: 15px;
+        line-height: 18px
       }
 
       .link {
@@ -127,7 +131,7 @@
         font-weight: bold;
       }
 
-      /* Small devices (landscape phones, 576px and up) */
+      /* Small devices (landscape phones, 300px and up) */
       @media (min-width: 300px) {
         #map {
           height: 70vh;
@@ -139,6 +143,9 @@
           height: 45vh;
           width: calc(100% - 45px);
           border: none;
+        }
+        .legend{
+          visibility: hidden;
         }
       }
 
@@ -156,6 +163,9 @@
           border-top: 3px groove whitesmoke;
           border-bottom: 3px groove whitesmoke;
           border-left: 3px groove whitesmoke;
+        }
+        .legend{
+          visibility: visible;
         }
       }
 
@@ -249,16 +259,17 @@
       .boxed {
         position: -webkit-sticky;
         position: sticky;
-        margin-bottom: 10px;
+        margin: 0 auto;
         font-family: "cabin", sans-serif;
         font-size: 14px;
         font-style: bold;
         text-align: Center;
         background-color: rgba(131, 128, 128, 0.918);
         color: rgb(37, 37, 37);
-        padding: 12px;
+        padding: 6px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        width: 90%;
+        border-radius: 5px;
+        width: 70%;
         bottom: 4px;
         /* z-index:9999999999999; */
       }
@@ -321,23 +332,21 @@
               alt="Pro-Lula Rally"
             />
             <figcaption class="caption">
-              Photo by Ricardo Stuckert. Licenced by Creative Commons
+              Photo by Ricardo Stuckert. Licensed by Creative Commons
             </figcaption>
-            <p>
-              <span class="p2"
+            <p class="p2"
                 ><b>—</b> This map was made using data from Radboud University's
                 <a class="link" href="globaldatalab.org">Global Data Lab.</a
-                ><br /><br /><b>—</b> "Extreme poverty" is defined as an
+                ><br /><br /><b>—</b> "Extreme poverty" is defined by an
                 <a class="link" href="https://globaldatalab.org/iwi/"
                   >International Wealth Index (IWI)</a
                 >
-                score below 35.</span
-              >
+                score below 35.
             </p>
             <div class="boxed">
               Map created by Tim Higginbotham<br />University of Kentucky: New
-              Maps Plus.<br />
-              December 12, 2020
+              Maps Plus<br />
+              December 20, 2020
             </div>
           </section>
         </aside>
