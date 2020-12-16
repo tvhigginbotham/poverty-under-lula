@@ -41,7 +41,6 @@
         float: left;
         width: 70%;
         height: 93vh;
-        /* min-height: 93vh; */
         border-top: 3px groove whitesmoke;
         border-bottom: 3px groove whitesmoke;
       }
@@ -49,17 +48,13 @@
       #about {
         background-color: rgb(37, 37, 37);
         color: whitesmoke;
-        /* float: right; */
         width: calc(30% - 49px);
         height: 93vh;
-        /* min-height: 93vh; */
         margin: auto;
         padding: 0px 20px 0px 25px;
         border-top: 3px groove white;
         border-bottom: 3px groove whitesmoke;
         border-left: 3px groove whitesmoke;
-        /* font-family: 'open sans', sans-serif;
-      font-size: 15px; */
         overflow-y: scroll;
       }
 
@@ -71,13 +66,6 @@
         margin: 10;
         border: 1px groove rgb(139, 132, 132);
       }
-
-      /* .caption{
-      font-family: 'Martel', serif;
-      font-size: 10px;
-      line-height: 16px;
-      padding: 15px 0px 0px 0px
-    } */
 
       .caption {
         text-align: left;
@@ -421,16 +409,10 @@
       function processData(states, data) {
         parsedData = data.data;
 
-        // loop through all the states
         for (let i of states.features) {
-          // for each of the CSV data rows
           for (let j of data.data) {
-            // if the state fips code and data fips code match
             if (i.properties.ADM1_PT === j.Region) {
-              // re-assign the data for that state as the state's props
               i.properties = j;
-
-              // no need to keep looping, break from inner loop
               break;
             }
           }
@@ -476,9 +458,7 @@
                 .bringToFront();
             });
 
-            // on mousing off layer
             layer.on("mouseout", function () {
-              // reset the layer style
               layer.setStyle({
                 color: "whitesmoke",
                 weight: 1.5,
@@ -487,10 +467,8 @@
           },
         }).addTo(map);
 
-        // first set the zoom/center to the dataLayer's extent
         map.fitBounds(dataLayer.getBounds());
 
-        //create slider UI
         createSliderUI(dataLayer, colorize);
 
         //initially color map with first timestamp
@@ -498,9 +476,8 @@
       } //end drawMap
 
       function updateMap(dataLayer, colorize, currentYear) {
-        // loop through each layer
+  
         dataLayer.eachLayer(function (layer) {
-          //shorthand for properties
           const props = layer.feature.properties;
           const info = $("#info").hide();
 
@@ -523,7 +500,6 @@
           <span style="font-size: 120%; font-family: 'lato', sans-serif;">
             <b>Trend (2003-2010):</b></span></p>
             <div class="trendspark ${regionId}"></div>`;
-          // <br/>
 
           //bind tooltip to layer
           layer.bindTooltip(tooltip, {
@@ -545,19 +521,14 @@
       } // end updateMap
 
       function drawLegend(breaks, colorize) {
-        // create a Leaflet control for the legend
         const legendControl = L.control({
           position: "bottomleft",
         });
 
-        // when the control is added to the map
         legendControl.onAdd = function (map) {
-          // create a new division element with class of 'legend' and return
           const legend = L.DomUtil.create("div", "legend");
           return legend;
         };
-
-        // add the legend control to the map
         legendControl.addTo(map);
 
         const legend = $(".legend").html(
@@ -566,15 +537,12 @@
 
         //loop through the break values
         for (let i = 0; i < breaks.length - 1; i++) {
-          //access color for each class range
           const color = colorize(breaks[i]);
 
           //build a list item with color blocks and values
           const classRange = `<li><span style="background:${color}"></span>
                               ${breaks[i].toLocaleString()}% &mdash;
                               ${breaks[i + 1].toLocaleString()}%</li>`;
-
-          //append the list item to the list
           $(".legend ul").append(classRange);
         }
       } // end drawLegend()
@@ -583,28 +551,21 @@
         const sliderControl = L.control({ position: "bottomright" });
         //when added to the map
         sliderControl.onAdd = function (map) {
-          //create leaflet control for the slider
           const slider = L.DomUtil.get("ui-controls");
 
-          //disable scrolling of map while using controls
           L.DomEvent.disableScrollPropagation(slider);
 
-          //disable click events while using controls
           L.DomEvent.disableClickPropagation(slider);
 
-          //return the slider from the onAdd method
           return slider;
         };
 
-        // Add the control to the map
         sliderControl.addTo(map);
 
-        // select the form event
         $(".year-slider").on("input change", function () {
-          //when user changes
           const currentYear = $(this).val(); //update the year
-          updateMap(dataLayer, colorize, `poverty-${currentYear}`); // update the map with current timestamp
-          $(".legend H3 span").html(currentYear); // update timestamp in legend heading
+          updateMap(dataLayer, colorize, `poverty-${currentYear}`);
+          $(".legend H3 span").html(currentYear);
         });
       } // end createSliderUI()
     </script>
