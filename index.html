@@ -302,7 +302,7 @@
           <section>
             <h2 class="h2">ABOUT THIS MAP</h2>
             <p class="p">
-              In 2003, Brazil elected its first working class president. Luis
+              In 2003, Brazil elected its first working-class president. Luis
               Inacio Lula da Silva — better known simply as "Lula" — took office
               with the promise of improving material conditions for Brazil's
               working majority.</p><p class="p">He followed through, most notably with 'Bolsa
@@ -384,12 +384,21 @@
         }
         return povertyValues;
       }
+
+      var range_map = $.range_map({
+        '0:1': "#edf8e9",
+        '1:5': "#c7e9c0",
+        '5:10': "#a1d99b",
+        '10:15': "#74c476",
+        '15:20': "#31a354",
+        '20:': "#006d2c"
+    })
       
       const options = {
         scrollWheelZoom: false,
         zoomSnap: 0.2,
         dragging: false,
-        zoomControl: true,
+        zoomControl: false,
       };
 
       // create the Leaflet map
@@ -491,7 +500,7 @@
 
           const tooltip = 
           `<span style="font-size: 150%; font-family: 'lato', sans-serif; color: black;">
-          <b>${props["Region"]}</b></span>
+          <b>${props["Region"]} </b></span><br/>
           <span style="font-size: 90%; font-family: 'lato', sans-serif;">
           (pop: ${getPopulation(props["Region"], currentYear)} million)</span></p>
           <p><span style="font-size: 120%; font-family: 'lato', sans-serif;">
@@ -509,12 +518,16 @@
           layer.on('tooltipopen', function() {
             const rates = getPovertyOverTimeForRegion(props["Region"]);
             $(`.trendspark.${regionId}`).sparkline(rates, {
-              width: "190px",
-              height: "30px",
-              lineColor: "yellow",
-              fillColor: "lightgreen",
+              type: "bar",
+              width: "130px",
+              height: "80px",
+              barWidth: 13.5,
+              barSpacing: 7.5,
+              colorMap: range_map, 
+              chartRangeMin: 0,
+              chartRangeMax: Math.max(rates),
               spotRadius: 0,
-              lineWidth: 4,
+              lineWidth: 2,
             });
           });
         });
